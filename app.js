@@ -1,7 +1,7 @@
 import express from "express";
 
 // routers
-import usersRoute from "#db/routes/users";
+import usersRouter from "#db/routes/users";
 import productsRouter from "#db/routes/products";
 import ordersRouter from "#db/routes/orders";
 
@@ -14,7 +14,6 @@ const app = express();
 // built-in middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
 
 // attach user if token exists
 app.use(getUserFromToken);
