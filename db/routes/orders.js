@@ -13,7 +13,7 @@ router.use(getUserFromToken);
 router.post("/", requireUser, requireBody(["date"]), async (req, res) => {
   const { date } = req.body;
   const { rows: [order] } = await db.query(
-    "INSERT INTO orders (user_id, date) VALUES ($1, $2) RETRNING *",
+    "INSERT INTO orders (user_id, date) VALUES ($1, $2) RETURNING *",
     [req.user.id, date]
   );
   res.status(201).send(order);
