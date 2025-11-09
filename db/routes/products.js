@@ -24,11 +24,10 @@ router.get("/:id/orders", requireUser, async (req, res) => {
   if (!product[0]) return res.status(404).send("Product not found");
 
   const { rows: orders } = await db.query(
-    `SELECT orders.*
-     FROM orders
-     JOIN orders_products ON orders.id = orders_products.order_id
-     WHERE orders_products.product_id = $1 
-     AND orders.user_id = $2`,
+    `SELECT o.*
+     FROM orders o
+     JOIN orders_products op ON o.id = op.order_id
+     WHERE op.product_id = $1 AND o.user_id = $2`,
     [id, req.user.id]
   );
 
