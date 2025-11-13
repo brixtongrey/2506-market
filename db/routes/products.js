@@ -14,6 +14,16 @@ router.get("/", async (req, res) => {
   res.send(rows);
 });
 
+// get product by id
+router.get("/:id", async (req, res) => {
+  const { rows: products } = await db.query(
+    "SELECT * FROM products WHERE id = $1",
+    [req.params.id]
+  );
+  if (!products[0]) return res.status(404).send("Product not found");
+  res.send(products[0]);
+});
+
 // get orders that include product
 router.get("/:id/orders", requireUser, async (req, res) => {
   const { id } = req.params;
